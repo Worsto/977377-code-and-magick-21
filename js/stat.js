@@ -38,41 +38,44 @@ const getMessage = function (ctx, x, y, textArr) {
   }
 }
 
-const getScore = function (ctx, quantity, max, score, i) {
+const getScore = function (ctx, quantity, max, score, step) {
   ctx.fillStyle = '#000'
   ctx.textBaseline = 'top'
   ctx.fillText(
     Math.round(score),
-    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (i + 1),
+    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1),
     CLOUD_HEIGHT - GAP * 5 - (BAR_HEIGHT * score) / max
   )
 }
 
-const getRandomBlue = function () {
-  return 'hsl(240, ' + (Math.floor(Math.random() * 100) + 1) + '%, 50%)'
+const getRandomToHundred = function () {
+  return (Math.floor(Math.random() * 100) + 1)
 }
 
-const renderGistogramm = function (ctx, quantity, max, name, score, i) {
+const getBarColor = function (ctx, name) {
   if (name === 'Вы') {
     ctx.fillStyle = '#F00'
   } else {
-    ctx.fillStyle = getRandomBlue()
+    ctx.fillStyle = `hsl(240, ${getRandomToHundred()}%, 50%)`
   };
+}
+
+const renderGistogramm = function (ctx, quantity, max, name, score, step) {
   ctx.fillRect(
-    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (i + 1) - (BAR_WIDTH / 2),
+    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1) - (BAR_WIDTH / 2),
     CLOUD_HEIGHT - GAP * 3 - (BAR_HEIGHT * score) / max,
     BAR_WIDTH,
     (BAR_HEIGHT * score) / max
   )
 }
 
-const renderName = function (ctx, name, quantity, i) {
+const renderName = function (ctx, name, quantity, step) {
   ctx.fillStyle = '#000'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   ctx.fillText(
     name,
-    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (i + 1),
+    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1),
     CLOUD_HEIGHT - GAP
   )
 }
@@ -106,6 +109,8 @@ window.renderStatistics = function (ctx, players, times) {
       players.length,
       i
     )
+
+    ctx.fillStyle = getBarColor(ctx, players[i])
 
     renderGistogramm(
       ctx,
