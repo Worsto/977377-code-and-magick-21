@@ -37,12 +37,12 @@ const WIZARD_EYES_COLORS = [
   'green'
 ]
 
-function showMenu (element) {
-  element.classList.remove('hidden')
+function showMenu () {
+  document.querySelector('.setup').classList.remove('hidden')
 }
 
-function showWizards (element) {
-  element.classList.remove('hidden')
+function showWizards () {
+  userDialog.querySelector('.setup-similar').classList.remove('hidden')
 }
 
 function getRandomNumber (min, max) {
@@ -91,7 +91,7 @@ function createWizardsList (array) {
 
 const userDialog = document.querySelector('.setup')
 
-showMenu(userDialog)
+showMenu()
 
 const similarListElement = userDialog.querySelector('.setup-similar-list')
 
@@ -103,4 +103,4 @@ const wizards = createWizards(WIZARDS_QUANTITY)
 
 similarListElement.appendChild(createWizardsList(wizards))
 
-showWizards(userDialog.querySelector('.setup-similar'))
+showWizards()
