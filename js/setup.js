@@ -37,6 +37,8 @@ const WIZARD_EYES_COLORS = [
   'green'
 ]
 
+const userDialog = document.querySelector('.setup')
+
 function showMenu () {
   document.querySelector('.setup').classList.remove('hidden')
 }
@@ -53,7 +55,7 @@ function getRandomFromArray (arr) {
   return arr[getRandomNumber(0, arr.length - 1)]
 }
 
-function createWizardMok () {
+function createWizardMock () {
   return {
     name: `${getRandomFromArray(WIZARD_FIRST_NAMES)} ${getRandomFromArray(WIZARD_SECOND_NAMES)}`,
     coatColor: getRandomFromArray(WIZARD_COAT_COLORS),
@@ -64,14 +66,17 @@ function createWizardMok () {
 function createWizards (amount) {
   const wizards = []
   for (let i = 0; i < amount; i++) {
-    wizards.push(createWizardMok())
+    wizards.push(createWizardMock())
   }
 
   return wizards
 }
 
 function renderWizard (wizard) {
-  const wizardElement = similarWizardTemplate.cloneNode(true)
+  const wizardElement = document
+    .querySelector('#similar-wizard-template')
+    .content
+    .querySelector('.setup-similar-item').cloneNode(true)
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor
@@ -89,18 +94,13 @@ function createWizardsList (array) {
   return fragment
 }
 
-const userDialog = document.querySelector('.setup')
+function renderWizardsList () {
+  userDialog
+    .querySelector('.setup-similar-list')
+    .appendChild(createWizardsList(wizards))
+}
 
 showMenu()
-
-const similarListElement = userDialog.querySelector('.setup-similar-list')
-
-const similarWizardTemplate = document.querySelector('#similar-wizard-template')
-  .content
-  .querySelector('.setup-similar-item')
-
 const wizards = createWizards(WIZARDS_QUANTITY)
-
-similarListElement.appendChild(createWizardsList(wizards))
-
+renderWizardsList()
 showWizards()
