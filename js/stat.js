@@ -1,4 +1,3 @@
-'use strict'
 
 const CLOUD_WIDTH = 420
 const CLOUD_HEIGHT = 270
@@ -26,25 +25,25 @@ const getMaxElement = function (arr) {
 }
 
 const getMessage = function (ctx, x, y, textArr) {
-  ctx.fillStyle = '#000'
-  ctx.textBaseline = 'middle'
-  ctx.textAlign = 'left'
+  ctx.fillStyle = `#000`
+  ctx.textBaseline = `middle`
+  ctx.textAlign = `left`
   for (let i = 0; i < textArr.length; i++) {
     ctx.fillText(
-      textArr[i],
-      x,
-      y + 20 * i
+        textArr[i],
+        x,
+        y + 20 * i
     )
   }
 }
 
 const getScore = function (ctx, quantity, max, score, step) {
-  ctx.fillStyle = '#000'
-  ctx.textBaseline = 'top'
+  ctx.fillStyle = `#000`
+  ctx.textBaseline = `top`
   ctx.fillText(
-    Math.round(score),
-    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1),
-    CLOUD_HEIGHT - GAP * 5 - (BAR_HEIGHT * score) / max
+      Math.round(score),
+      CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1),
+      CLOUD_HEIGHT - GAP * 5 - (BAR_HEIGHT * score) / max
   )
 }
 
@@ -53,80 +52,80 @@ const getRandomToHundred = function () {
 }
 
 const getBarColor = function (ctx, name) {
-  if (name === 'Вы') {
-    ctx.fillStyle = '#F00'
+  if (name === `Вы`) {
+    ctx.fillStyle = `#F00`
   } else {
     ctx.fillStyle = `hsl(240, ${getRandomToHundred()}%, 50%)`
-  };
+  }
 }
 
 const renderGistogramm = function (ctx, quantity, max, name, score, step) {
   ctx.fillRect(
-    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1) - (BAR_WIDTH / 2),
-    CLOUD_HEIGHT - GAP * 3 - (BAR_HEIGHT * score) / max,
-    BAR_WIDTH,
-    (BAR_HEIGHT * score) / max
+      CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1) - (BAR_WIDTH / 2),
+      CLOUD_HEIGHT - GAP * 3 - (BAR_HEIGHT * score) / max,
+      BAR_WIDTH,
+      (BAR_HEIGHT * score) / max
   )
 }
 
 const renderName = function (ctx, name, quantity, step) {
-  ctx.fillStyle = '#000'
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
+  ctx.fillStyle = `#000`
+  ctx.textAlign = `center`
+  ctx.textBaseline = `middle`
   ctx.fillText(
-    name,
-    CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1),
-    CLOUD_HEIGHT - GAP
+      name,
+      CLOUD_X + (CLOUD_WIDTH / (quantity + 1)) * (step + 1),
+      CLOUD_HEIGHT - GAP
   )
 }
 
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(
-    ctx,
-    CLOUD_X + GAP,
-    CLOUD_Y + GAP,
-    'rgba(0, 0, 0, 0.3)'
+      ctx,
+      CLOUD_X + GAP,
+      CLOUD_Y + GAP,
+      `rgba(0, 0, 0, 0.3)`
   )
   renderCloud(
-    ctx,
-    CLOUD_X,
-    CLOUD_Y,
-    '#fff'
+      ctx,
+      CLOUD_X,
+      CLOUD_Y,
+      `#fff`
   )
   getMessage(
-    ctx,
-    CLOUD_X + GAP * 2,
-    CLOUD_Y + GAP * 3,
-    ['Ура вы победили!', 'Список результатов:']
+      ctx,
+      CLOUD_X + GAP * 2,
+      CLOUD_Y + GAP * 3,
+      [`Ура вы победили!`, `Список результатов:`]
   )
 
   const maxTime = getMaxElement(times)
 
   for (let i = 0; i < players.length; i++) {
     renderName(
-      ctx,
-      players[i],
-      players.length,
-      i
+        ctx,
+        players[i],
+        players.length,
+        i
     )
 
     ctx.fillStyle = getBarColor(ctx, players[i])
 
     renderGistogramm(
-      ctx,
-      players.length,
-      maxTime,
-      players[i],
-      times[i],
-      i
+        ctx,
+        players.length,
+        maxTime,
+        players[i],
+        times[i],
+        i
     )
 
     getScore(
-      ctx,
-      players.length,
-      maxTime,
-      times[i],
-      i
+        ctx,
+        players.length,
+        maxTime,
+        times[i],
+        i
     )
-  };
+  }
 }
