@@ -36,7 +36,6 @@ const WIZARD_EYES_COLORS = [
   'yellow',
   'green'
 ]
-
 const WIZARD_FIREBALLS_COLORS = [
   '#ee4830',
   '#30a8ee',
@@ -157,7 +156,6 @@ function renderWizard (wizard) {
     .querySelector('.setup-similar-item')
 
   const wizardElement = similarWizardTemplate.cloneNode(true)
-
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor
