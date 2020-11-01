@@ -1,4 +1,3 @@
-'use strict'
 
 const CLOUD_WIDTH = 420
 const CLOUD_HEIGHT = 270
@@ -57,7 +56,7 @@ const getBarColor = function (ctx, name) {
     ctx.fillStyle = '#F00'
   } else {
     ctx.fillStyle = `hsl(240, ${getRandomToHundred()}%, 50%)`
-  };
+  }
 }
 
 const renderGistogramm = function (ctx, quantity, max, name, score, step) {
@@ -128,5 +127,5 @@ window.renderStatistics = function (ctx, players, times) {
       times[i],
       i
     )
-  };
+  }
 }
