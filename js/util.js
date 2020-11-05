@@ -20,10 +20,10 @@
   }
 
   const findNextInArray = function (element, array) {
-    if (array.indexOf(element.value) === array.length - 1) {
+    if (array.indexOf(element) === array.length - 1) {
       return array[0]
     } else {
-      return array[array.indexOf(element.value) + 1]
+      return array[array.indexOf(element) + 1]
     }
   }
 
